@@ -40,18 +40,19 @@ app.set('secretKey', config.CLIENT_SECRET);
 // This is all you baby!
 
 app.post('/authenticate', (request, response) => {
-  const user = request.body;
+    const user = request.body;
 
-  if (user.username !== config.USERNAME || user.password !== config.PASSWORD) {
-    response.status(403).send({
-      success: false,
-      message: 'Invalid Credentials'
-    });
-  }
-  else {
-    let token = jwt.sign(user, app.get('secretKey'), {
-      expiresIn: 1728000
-    });
+    if (user.username !== config.USERNAME || user.password !== config.PASSWORD) {
+        response.status(403).send({
+          success: false,
+          message: 'Invalid Credentials'
+        });
+      }
+    else {
+        let token = jwt.sign(user, app.get('secretKey'), {
+          expiresIn: 172800 // expires in 48 hours
+        });
+
     response.json({
       success: true,
       username: user.username,
